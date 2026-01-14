@@ -7,7 +7,9 @@
   },
   "dependencies": {
     "@mikro-orm/core": "^6.6.3",
+    "@mikro-orm/migrations": "^6.6.3",
     "@mikro-orm/reflection": "^6.6.3",
+    "@mikro-orm/seeder": "^6.6.3",
     "@mikro-orm/sqlite": "^6.6.3",
     "argon2": "^0.44.0",
     "fastify": "^5.6.2"

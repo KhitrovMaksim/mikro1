@@ -1,4 +1,4 @@
-import {Collection, Entity, ManyToMany, ManyToOne, Property, t} from '@mikro-orm/core';
+import {Collection, Entity, ManyToMany, ManyToOne, OneToMany, Property, t} from '@mikro-orm/core';
 import { BaseEntity } from '../common/base.entity.js';
 import { User } from '../user/user.entity.js';
 import {Tag} from "./tag.entity.js";
@@ -41,6 +41,9 @@ export class Article extends BaseEntity<'slug' | 'description'> {
 
   @ManyToMany({ inversedBy: 'articles' })
   tags = new Collection<Tag>(this);
+
+  @OneToMany({ mappedBy: 'article', eager: true, orphanRemoval: true })
+  comments = new Collection<Comment>(this);
 
   constructor(title: string, text: string, author: User) {
     super();
