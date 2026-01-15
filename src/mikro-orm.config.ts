@@ -1,5 +1,5 @@
 // for simplicity, we use the SQLite database, as it's available pretty much everywhere
-import {defineConfig, GeneratedCacheAdapter, Options, SqlitePlatform} from '@mikro-orm/sqlite';
+import {defineConfig, GeneratedCacheAdapter, Options, PostgreSqlPlatform} from '@mikro-orm/postgresql';
 import { SqlHighlighter } from '@mikro-orm/sql-highlighter';
 import {SeedManager} from '@mikro-orm/seeder';
 import {Migrator} from "@mikro-orm/migrations";
@@ -21,11 +21,15 @@ if (process.env.NODE_ENV === 'production' && existsSync('./temp/metadata.json'))
 }
 
 // to get around stackblitz issues with outdated sqlite (no returning statement support)
-SqlitePlatform.prototype.usesReturningStatement = () => false;
+PostgreSqlPlatform.prototype.usesReturningStatement = () => false;
 
 export default defineConfig({
     // for simplicity, we use the SQLite database, as it's available pretty much everywhere
-    dbName: 'sqlite.db',
+    dbName: 'mikro1',
+    user: 'mikro',
+    host: 'localhost',
+    password: 'mikro',
+    port: 5432,
     // folder based discovery setup, using common filename suffix
     entities: ['dist/**/*.entity.js'],
     entitiesTs: ['src/**/*.entity.ts'],

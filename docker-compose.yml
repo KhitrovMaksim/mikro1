@@ -1,0 +1,43 @@
+name: mikro1
+
+services:
+  postgres:
+    image: postgres:13.5
+    container_name: postgres
+    environment:
+      - POSTGRES_DB=mikro1
+      - POSTGRES_USER=mikro
+      - POSTGRES_PASSWORD=mikro
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    volumes:
+      - ./containers-data/postgres:/var/lib/postgresql/data
+      - /root/scripts/:/docker-entrypoint-initdb.d/
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U mikro -d mikro1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    restart: unless-stopped
+
+  http-handler:
+    container_name: http-handler
+    build:
+      context: .
+      dockerfile_inline: |
+        FROM node:20-alpine
+        WORKDIR /usr/src/app
+        COPY ./package*.json ./
+        COPY . .
+        RUN npm install
+        RUN npm build
+        EXPOSE 3001
+        CMD ["node","dist/server.js"]
+    ports:
+      - "3001:3001"
+
+volumes:
+  containers-data:
+  files:

@@ -72,3 +72,6 @@ coverage
 
 # Output of 'npm pack'
 *.tgz
+
+# PosgreSQL data directory
+containers-data

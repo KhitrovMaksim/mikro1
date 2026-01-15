@@ -47,7 +47,7 @@ export async function bootstrap(port = 3001, migrate = true) {
     }
 
     app.log.error(error);
-    reply.status(500).send({ error: error.message });
+    reply.status(500).send({ error: 'Internal Server Error' });
   });
 
   // shut down the connection when closing the app
