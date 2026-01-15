@@ -2,6 +2,7 @@ import {Collection, Entity, ManyToMany, ManyToOne, OneToMany, Property, t} from 
 import { BaseEntity } from '../common/base.entity.js';
 import { User } from '../user/user.entity.js';
 import {Tag} from "./tag.entity.js";
+import {Comment} from "./comment.entity.js";
 
 function convertToSlug(text: string) {
   return text.toLowerCase()
